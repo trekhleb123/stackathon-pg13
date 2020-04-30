@@ -1,0 +1,17 @@
+{
+  "name": "stackathon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "clarifai": "^2.9.1",
+    "got": "^11.0.3",
+    "jsdom": "^16.2.2",
+    "nodemon": "^2.0.3"
+  }
+}
