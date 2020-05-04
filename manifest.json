@@ -1,0 +1,21 @@
+{
+  "manifest_version": 2,
+  "version": "1.1",
+  "name": "PG13 Images",
+  "description": "Building Chrome extention to moderate images",
+  "author": "Alona Trekhib",
+  "web_accessible_resources": ["images/art/*.jpg"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["public/bundle.js"]
+    }
+  ],
+  "permissions": ["tabs", "activeTab", "declarativeContent"],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_icon": "images/pg13.png"
+  }
+}

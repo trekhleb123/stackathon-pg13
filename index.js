@@ -1,25 +1,8 @@
-const jsdom = require("jsdom")
-const { JSDOM } = jsdom
-const fs = require("fs")
-const got = require("got")
 const Clarifai = require("clarifai")
 const _find = require("lodash/find")
 const clarifaiApp = new Clarifai.App({
-  apiKey: "698a9578efec4ea9af9b83e09c691501",
+  apiKey: "8c12a1098d2d42bc9f314ee73b8ff8e2",
 })
-
-const wikiUrl = "https://en.wikipedia.org/wiki/Sexual_intercourse"
-
-got(wikiUrl)
-  .then((response) => {
-    const dom = new JSDOM(response.body)
-    dom.window.document
-      .querySelectorAll("img")
-      .forEach((el) => console.log(el.src))
-  })
-  .catch((err) => {
-    console.log(err)
-  })
 
 const isArt = async (url) => {
   try {
@@ -33,9 +16,6 @@ const isArt = async (url) => {
   }
 }
 
-const imageURL =
-  "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Semi-protection-shackle.svg/20px-Semi-protection-shackle.svg.png"
-
 const isPG = async (url) => {
   try {
     const response = await clarifaiApp.models.predict(
@@ -46,17 +26,17 @@ const isPG = async (url) => {
     const safeConcept = _find(response.outputs[0].data.concepts, {
       name: "safe",
     })
-    if (safeConcept && safeConcept.value > 0.8) {
-      console.log(true)
+    if (safeConcept && safeConcept.value > 0.2) {
+      // console.log(true, url, response.outputs[0].data.concepts)
       return true
     } else {
       const result = await isArt(url)
-      console.log(result)
+      // console.log({ result }, url, response.outputs[0].data.concepts)
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.log(err, url)
   }
 }
 
-isPG(imageURL)
+module.exports = { isPG }
