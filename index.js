@@ -1,7 +1,7 @@
 const Clarifai = require("clarifai")
 const _find = require("lodash/find")
 const clarifaiApp = new Clarifai.App({
-  apiKey: "8c12a1098d2d42bc9f314ee73b8ff8e2",
+  apiKey: "API_KEY_PLACEHOLDER",
 })
 
 const isArt = async (url) => {
@@ -32,7 +32,7 @@ const isPG = async (url) => {
       return result
     }
   } catch (err) {
-    console.log(err)
+    console.log(err, url)
   }
 }
 
