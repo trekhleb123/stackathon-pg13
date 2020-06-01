@@ -7,7 +7,6 @@ const clarifaiApp = new Clarifai.App({
 const isArt = async (url) => {
   try {
     const res = await clarifaiApp.models.predict(Clarifai.GENERAL_MODEL, url)
-    //console.log(JSON.stringify(generalConcepts, null, 2))
     const artConcept = _find(res.outputs[0].data.concepts, { name: "art" })
     if (artConcept && artConcept.value > 0.8) return true
     return false
@@ -27,15 +26,13 @@ const isPG = async (url) => {
       name: "safe",
     })
     if (safeConcept && safeConcept.value > 0.2) {
-      // console.log(true, url, response.outputs[0].data.concepts)
       return true
     } else {
       const result = await isArt(url)
-      // console.log({ result }, url, response.outputs[0].data.concepts)
       return result
     }
   } catch (err) {
-    console.log(err, url)
+    console.log(err)
   }
 }
 
